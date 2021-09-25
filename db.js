@@ -47,6 +47,20 @@ class Database {
 
         this.#Disconnect();
     }
+
+    async UpdateCustomer(id, changedCustomer) {
+        this.#Connect();
+
+        const customer = await this.#Customer.findById(id);
+        if (!customer) return console.log('Customer Not Found...');
+
+        //edit customer
+
+        const result = await customer.save();
+        console.log(result);
+
+        this.#Disconnect();
+    }
 }
 
 module.exports = Database;
