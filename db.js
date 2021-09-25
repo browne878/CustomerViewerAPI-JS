@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('config');
 
 class Database {
     #Customer;
@@ -16,7 +17,7 @@ class Database {
     }
 
     #Connect() {
-        mongoose.connect('mongodb://localhost/playground')
+        mongoose.connect(config.get('database.connString'))
             .then(() => console.log('Connected to MongoDB...'))
             .catch(err => console.error('Could not connect to MongoDB...' + err));
     }
