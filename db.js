@@ -38,6 +38,15 @@ class Database {
 
         this.#Disconnect();
     }
+
+    async GetCustomers(){
+        this.#Connect();
+
+        const customers = await this.#Customer.find();
+        console.log(customers);
+
+        this.#Disconnect();
+    }
 }
 
 module.exports = Database;
