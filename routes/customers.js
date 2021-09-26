@@ -21,7 +21,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    //Add New Customer
+    const { error } = validateCustomer(req.body);
+
+    if (error) return res.status(400).send(error.details[0].message); // 400 bad request
+
+    const result = await db.CreateCustomer(req.body);
+
+    res.send(result);
 });
 
 router.put('/:id', (req, res) => {
