@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
     db.GetCustomer(req.params.id).then(result => {
         console.log(result);
         res.send(result);
-    })
+    });
 });
 
 router.post('/', (req, res) => {
