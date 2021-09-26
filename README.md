@@ -46,9 +46,20 @@ mongod
 mongodb://localhost/customers
 ```
 
-**Remember that you will need to do a POST request first to create the database**
+Remember that you will need to do a POST request first to create the database
 
-Your MongoDB server should now be set up running on `localhost` on the default port of `27017`.
+Alternatively, you can follow the steps below to import some template data to use. To do this, we will use MongoDB Compass.
+
+- First you will want to set up the API from the steps below. You can then run it. This will create the database.
+- Next you will want to open MongoDB Compass and connect to your database with the following connection string (if you left everything default):
+```
+mongodb://localhost/customers
+```
+- After that, you will want to navigate to the `customers` database and then the `customers` file.
+- Then, click the green `Add Data` button and select `Import File`.
+- Finally, you will want to navigate to [Customers-Database-Export.json](Customers-Database-Export.json) where you downloaded it and select it. You should also select the `JSON` button and then click the green `IMPORT` button.
+
+Your MongoDB server should now be set up running on `localhost` on the default port of `27017` with some template data.
 
 ## Preparing the API
 
@@ -174,3 +185,5 @@ If your POST and PUT requests do not follow this you will recieve an error in th
 I have compiled a list of useful request which can be easily accessed.
 
 You can import the collection with this [file](CustomerViewerAPI-JS.postman_collection.json).
+
+If you wish to use my Deployed API, you can [this](CustomerViewerAPI-JS-LIVE.postman_collection.json) collection to query it.
