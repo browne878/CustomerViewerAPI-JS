@@ -36,12 +36,11 @@ class Database {
 
     async GetCustomers(){
         const customers = await this.#Customer.find();
-        console.log(customers);
+        return customers;
     }
 
     async GetCustomer(id) {
         const customers = await this.#Customer.findById(id);
-
         return customers;
     }
 
