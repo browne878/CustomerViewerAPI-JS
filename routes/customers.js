@@ -38,7 +38,7 @@ router.put('/:id', (req, res) => {
     db.GetCustomer(req.params.id).then(result => {
         if (!result) {
             console.log('Customer Not Found');
-            req.status(404).send('Customer Not Found');
+            res.status(404).send('Customer Not Found');
         }
 
         const { error } = validateCustomer(req.body);
