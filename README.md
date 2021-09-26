@@ -10,7 +10,7 @@
   - [POST Request](https://github.com/browne878/CustomerViewerAPI#post-request)
   - [PUT Request](https://github.com/browne878/CustomerViewerAPI#put-request)
   - [DELETE Request](https://github.com/browne878/CustomerViewerAPI#delete-request)
-  - [Request Paramaters]()
+  - [Request Parameters](https://github.com/browne878/CustomerViewerAPI-JS#request-paramaters)
 - [POSTMAN Collection](https://github.com/browne878/CustomerViewerAPI#postman-collection)
 
 ## Creating the Database
@@ -158,7 +158,7 @@ in the body of the DELETE.
 https://localhost:3000/api/customers/{ID}
 ```
 
-### Request Paramaters
+### Request Parameters
 
 For bot POST and PUT requests there is validation on the customer objects sent in the body. The object you send must meet the following requirements.
 
