@@ -37,7 +37,10 @@ function validateCustomer(customer) {
         first_name: Joi.string().min(3).required(),
         last_name: Joi.string().min(3).required(),
         email: Joi.string().min(6).required(),
+        age: Joi.number().greater(17)
     });
+
+    return schema.validate(customer);
 }
 
 module.exports = router;

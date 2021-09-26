@@ -22,12 +22,16 @@ class Database {
             .catch(err => console.error('Could not connect to MongoDB...' + err));
     }
 
-    async CreateCustomer(){
+    async CreateCustomer(newCustomer){
+        const customer = new this.#Customer({
+            first_name: newCustomer.first_name,
+            last_name: newCustomer.last_name,
+            email: newCustomer.email,
+            age: newCustomer.age
+        });
 
-        // Validate Customer
-        
         const result = await customer.save();
-        console.log(result)
+        return result;
     }
 
     async GetCustomers(){
