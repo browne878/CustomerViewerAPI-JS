@@ -39,6 +39,12 @@ class Database {
         console.log(customers);
     }
 
+    async GetCustomer(id) {
+        const customers = await this.#Customer.findById(id);
+
+        return customers;
+    }
+
     async UpdateCustomer(id, changedCustomer) {
 
         const customer = await this.#Customer.findById(id);
@@ -57,7 +63,7 @@ class Database {
 
     async RemoveCustomer(id){
         const customer = await this.#Customer.findByIdAndRemove(id);
-        console.log(customer);
+        return customer;
     }
 }
 

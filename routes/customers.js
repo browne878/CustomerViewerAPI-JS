@@ -54,7 +54,14 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    //Delete Single Customer
+    db.RemoveCustomer(req.params.id).then(removerCustomer => {
+        if (!removerCustomer){
+            res.status(404).send('Customer Not Found');
+            return;
+        }
+
+        res.send(removerCustomer);
+    });
 });
 
 function validateCustomer(customer) {
