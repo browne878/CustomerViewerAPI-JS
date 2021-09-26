@@ -61,6 +61,15 @@ class Database {
 
         this.#Disconnect();
     }
+
+    async RemoveCustomer(id){
+        this.#Connect();
+
+        const customer = await this.#Customer.findByIdAndRemove(id);
+        console.log(customer);
+
+        this.#Disconnect();
+    }
 }
 
 module.exports = Database;

@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const Database = require('../db');
+
+const db = new Database;
 
 router.get('/', (req, res) => {
-    //Get all Customers
+    db.GetCustomers().then(result => {
+        console.log(result);
+        res.send(result);
+    });
 });
 
 router.get('/:id', (req, res) => {
