@@ -37,7 +37,20 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    //Update Customer
+    db.GetCustomer(req.params.id).then(result => {
+        if (!result) {
+            console.log('Customer Not Found');
+            req.status(404).send('Customer Not Found');
+        }
+
+        const { error } = validateCustomer(req.body);
+
+        if (error) return res.status(400).send(error.details[0].message);
+
+        db.UpdateCustomer(req.params.id, req.body).then(updatedCustomer => {
+            res.send(updatedCustomer);
+        });
+    });
 });
 
 router.delete('/:id', (req, res) => {
