@@ -3,6 +3,7 @@ const router = express.Router();
 const Database = require('../db');
 
 const db = new Database;
+db.Connect();
 
 router.get('/', (req, res) => {
     db.GetCustomers().then(result => {
