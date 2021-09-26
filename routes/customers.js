@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Joi = require('joi');
 const Database = require('../db');
 
 const db = new Database;
@@ -32,7 +33,11 @@ router.delete('/:id', (req, res) => {
 });
 
 function validateCustomer(customer) {
-    //Validate Customer
+    const schema = Joi.object({
+        first_name: Joi.string().min(3).required(),
+        last_name: Joi.string().min(3).required(),
+        email: Joi.string().min(6).required(),
+    });
 }
 
 module.exports = router;
