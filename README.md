@@ -186,4 +186,4 @@ I have compiled a list of useful request which can be easily accessed.
 
 You can import the collection with this [file](CustomerViewerAPI-JS.postman_collection.json).
 
-If you wish to use my Deployed API, you can [this](CustomerViewerAPI-JS-LIVE.postman_collection.json) collection to query it.
+If you wish to use my Deployed API, you can use [this](CustomerViewerAPI-JS-LIVE.postman_collection.json) collection to query it.
