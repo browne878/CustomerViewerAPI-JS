@@ -13,7 +13,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    //Get Customer by ID
+    db.GetCustomer(req.params.id).then(result => {
+        console.log(result);
+        res.send(result);
+    })
 });
 
 router.post('/', (req, res) => {
