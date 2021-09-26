@@ -15,8 +15,14 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     db.GetCustomer(req.params.id).then(result => {
-        console.log(result);
-        res.send(result);
+        if (!result){
+            console.log('Customer Not Found');
+            return res.status(404).send('Customer Not Found');
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
     });
 });
 

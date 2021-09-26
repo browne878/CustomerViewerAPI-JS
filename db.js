@@ -42,12 +42,17 @@ class Database {
     async UpdateCustomer(id, changedCustomer) {
 
         const customer = await this.#Customer.findById(id);
-        if (!customer) return console.log('Customer Not Found...');
+        if (!customer) return;
 
-        //edit customer
+        customer.first_name = changedCustomer.first_name;
+        customer.last_name = changedCustomer.last_name;
+        customer.email = changedCustomer.email;
+
+        // Checks if optional field is provided
+        if (changedCustomer.age) customer.age = changedCustomer.age;
 
         const result = await customer.save();
-        console.log(result);
+        return result
     }
 
     async RemoveCustomer(id){
