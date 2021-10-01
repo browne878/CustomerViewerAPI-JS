@@ -1,5 +1,4 @@
 {
-    "database": {
-        "connString": "conn_string"
-    }
+    "jwtPrivateKey": "jwtPrivateKey",
+    "connString": "conn_string"
 }

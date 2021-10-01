@@ -1,76 +1,59 @@
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
-const Database = require('../db');
+const {Customer, validate} = require('../models/customer');
+const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
 
-const db = new Database;
-db.Connect();
-
-router.get('/', (req, res) => {
-    db.GetCustomers().then(result => {
-        res.send(result);
-    });
+router.get('/', auth, async (req, res) => {
+    const customers = await Customer.find().sort('first_name');
+    res.send(customers);
 });
 
-router.get('/:id', (req, res) => {
-    db.GetCustomer(req.params.id).then(result => {
-        if (!result){
-            return res.status(404).send('Customer Not Found');
-        }
-        else {
-            console.log(result);
-            res.send(result);
-        }
-    });
+router.get('/:id', auth, async (req, res) => {
+    const customer = await Customer.findById(req.params.id);
+
+    if (!customer) return res.status(404).send('Customer Not Found');
+
+    res.send(customer);
 });
 
-router.post('/', async (req, res) => {
-    const { error } = validateCustomer(req.body);
+router.post('/', auth, async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-    if (error) return res.status(400).send(error.details[0].message); // 400 bad request
+    let customer = new Customer({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        age: req.body.age
+    });
+    customer = await customer.save();
 
-    const result = await db.CreateCustomer(req.body);
+    res.send(customer);
+});
+
+router.put('/:id', auth, async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const result = await Customer.findByIdAndUpdate(req.params.id, new Customer({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        age: req.body.age
+    }, { new: true }));
+
+    if (!result) return res.status(400).send('Customer Not Found');
 
     res.send(result);
 });
 
-router.put('/:id', (req, res) => {
-    db.GetCustomer(req.params.id).then(result => {
-        if (!result) {
-            console.log('Customer Not Found');
-            res.status(404).send('Customer Not Found');
-        }
+router.delete('/:id', auth, async (req, res) => {
+    const customer = await Customer.findByIdAndDelete(req.params.id)
 
-        const { error } = validateCustomer(req.body);
+    if (!customer) return res.status(400).send('Customer Not Found');
 
-        if (error) return res.status(400).send(error.details[0].message);
-
-        db.UpdateCustomer(req.params.id, req.body).then(updatedCustomer => {
-            res.send(updatedCustomer);
-        });
-    });
+    res.send(customer);
 });
-
-router.delete('/:id', (req, res) => {
-    db.RemoveCustomer(req.params.id).then(removerCustomer => {
-        if (!removerCustomer){
-            res.status(404).send('Customer Not Found');
-            return;
-        }
-
-        res.send(removerCustomer);
-    });
-});
-
-function validateCustomer(customer) {
-    const schema = Joi.object({
-        first_name: Joi.string().min(3).required(),
-        last_name: Joi.string().min(3).required(),
-        email: Joi.string().min(6).required(),
-        age: Joi.number().greater(17)
-    });
-
-    return schema.validate(customer);
-}
 
 module.exports = router;
